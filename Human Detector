@@ -1,0 +1,39 @@
+#include <LiquidCrystal.h>
+LiquidCrystal lcd (1,2,4,5,6,7);
+int pir_sensor = 13;
+int pir_reader;
+int led = 9;
+void setup()
+{
+pinMode(13,INPUT);
+pinMode(led,OUTPUT);
+lcd.begin(16,2);
+lcd.setCursor(2,0);
+lcd.print("COVID-19");
+lcd.setCursor(2,1);
+lcd.print("HUMAN DETECTOR");
+delay(2000);
+lcd.clear();
+}
+void loop()
+{
+pir_reader = digitalRead(pir_sensor);
+if (pir_reader ==1){
+digitalWrite(led,HIGH);
+lcd.setCursor(1,0);
+lcd.print("There is Human");
+lcd.clear();
+lcd.setCursor(1,1);
+lcd.print("Spray Sanitizer");
+}
+else{
+digitalWrite(led,LOW);
+lcd.clear();
+lcd.setCursor(0,0);
+lcd.print("There is No Human");
+lcd.setCursor(1,1);
+lcd.print("Don't Spray");
+delay(100);
+}
+;
+}
